@@ -3,9 +3,9 @@ from datetime import datetime
 
 ATTACHMENTS_DIR = Path(__file__).parent.parent.parent / 'Programms'
 SENDER_UNKNOWN = 'Unknown'
-SENDER_EMAIL = 'example_sender@example.com'
-RECIPIENT_EMAIL = 'example_recipient@example.com'
-MESSAGE_SUBJECT = 'Программа проверок'
+SENDER_EMAIL = 'nadzor-knd@egov66.ru'  # От кого письмо
+RECIPIENT_EMAIL = 'olpon0@yandex.ru'  # Кому посылаем
+MESSAGE_SUBJECT = 'Программа проверок'  
 ATTACHMENT_FILENAME = 'Программа проверок.pdf'
 
 LOG_MSG_SENDED = 'Настраиваем отправку емаил ...'

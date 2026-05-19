@@ -121,6 +121,64 @@ logger_email.info("Сообщение", username="john", user_id=42)
 
 Полный список см. в `requirements.txt`.
 
-## Лицензия
+## Docker
 
-Проект распространяется под лицензией MIT.
+Проект может быть запущен в Docker-контейнере. Для этого в корне проекта создан `Dockerfile`.
+
+### Сборка образа
+
+```bash
+docker build -t email-client:latest .
+```
+
+### Запуск контейнера
+
+Для запуска необходимо передать переменные окружения. Можно использовать файл `.env`:
+
+```bash
+docker run --rm --env-file .env email-client:latest
+```
+
+Или передать переменные напрямую:
+
+```bash
+docker run --rm \
+  -e ENV_TYPE=prod \
+  -e EMAIL=your_email@example.com \
+  -e EMAIL_PASSWORD=your_password \
+  -e SMTP_SERVER=smtp.example.com \
+  -e SMTP_PORT=465 \
+  -e EMAIL_SECURITY=ssl \
+  -e IMAP_EMAIL=your_email@example.com \
+  -e IMAP_PASSWORD=your_password \
+  -e IMAP_SERVER=imap.example.com \
+  -e IMAP_PORT=993 \
+  -e IMAP_SECURITY=ssl \
+  email-client:latest
+```
+
+### Постоянные данные
+
+Контейнер создает директории `logs/` и `Programms/` внутри контейнера. Чтобы сохранить данные на хосте, можно смонтировать volumes:
+
+```bash
+docker run --rm \
+  --env-file .env \
+  -v ./logs:/app/logs \
+  -v ./Programms:/app/Programms \
+  email-client:latest
+```
+
+### Тегирование и публикация
+
+Для публикации образа в реестре (например, Docker Hub):
+
+```bash
+docker tag email-client:latest yourusername/email-client:latest
+docker push yourusername/email-client:latest
+```
+
+## Лицензия
+- Разработано: Олег Пономарев
+- Контакты: olpon00@mail.ru
+- Лицензия: MIT
